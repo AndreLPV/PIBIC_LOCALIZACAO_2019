@@ -1,6 +1,6 @@
 ## Flask
 
-Utilizou-se o qeb framework Flask para implementar um servidor. Este servidor foi posteriormente carregado em um servidor em nuvem, especificamente na platafoma heroku.
+Utilizou-se o web framework Flask para implementar um servidor. Este servidor foi posteriormente carregado em um servidor em nuvem, especificamente na platafoma heroku.
 
 # Configuração
 
@@ -12,6 +12,7 @@ pip install virtualenvwrapper-win
 mkdir RSSIFlask
 type nul > __init__.py
 type nul > app.py
+type nul > deploy.py
 cd RSSIFlask
 virtualenv RSSIFlask_env
 
@@ -26,7 +27,11 @@ pip install -U scikit-learn
 
 pip freeze > requirements.txt
 
+Copiar e colar os arquivos restantes
+
+Para testar localmente
 python app.py
+python deploy.py
 
 ## Upload heroku
 
