@@ -50,7 +50,7 @@ python deploy.py
 ## Upload heroku
 
 *Precisa ter configurado localmente e ter a ferramenta git instalada, além de ter seguido os passos de instalação do heroku
-
+```
 git init
 
 git add .
@@ -60,3 +60,4 @@ git commit -m "first commit"
 heroku create
 
 git push heroku master
+```
