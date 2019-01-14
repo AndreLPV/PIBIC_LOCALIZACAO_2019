@@ -5,7 +5,7 @@ Utilizou-se o web framework Flask para implementar um servidor. Este servidor fo
 # Configuração
 
 ## Localmente
-
+```
 pip install virtualenv
 
 pip install virtualenvwrapper-win
@@ -45,6 +45,7 @@ Para testar localmente
 python app.py
 
 python deploy.py
+```
 
 ## Upload heroku
 
