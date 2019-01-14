@@ -42,6 +42,7 @@ pip freeze > requirements.txt
 Copiar e colar os arquivos restantes
 
 Para testar localmente
+
 ```
 python app.py
 
