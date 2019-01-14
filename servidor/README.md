@@ -2,7 +2,7 @@
 
 Utilizou-se o qeb framework Flask para implementar um servidor. Este servidor foi posteriormente carregado em um servidor em nuvem, especificamente na platafoma heroku.
 
-### Configuração
+# Configuração
 
 ## Localmente
 
