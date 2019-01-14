@@ -37,11 +37,12 @@ pip install pandas
 pip install -U scikit-learn
 
 pip freeze > requirements.txt
+```
 
 Copiar e colar os arquivos restantes
 
 Para testar localmente
-
+```
 python app.py
 
 python deploy.py
