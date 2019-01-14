@@ -2,6 +2,11 @@
 
 Repospitório para o material utilizado no programa PIBIC 2018/2019
 
-![Alt Text](https://github.com/AndreLPV/PIBIC_LOCALIZACAO_2019/blob/master/img/App1.jpeg)
+<p align="center">
 
-![Alt Text](https://github.com/AndreLPV/PIBIC_LOCALIZACAO_2019/blob/master/img/App2.jpeg)
+
+<img src="https://github.com/AndreLPV/PIBIC_LOCALIZACAO_2019/blob/master/img/App1.jpeg" width="350" alt="accessibility text">
+
+<img src="https://github.com/AndreLPV/PIBIC_LOCALIZACAO_2019/blob/master/img/App2.jpeg" width="350" alt="accessibility text">
+
+</p>
