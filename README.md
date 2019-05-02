@@ -2,9 +2,21 @@
 
 Repospitório para o material utilizado no programa PIBIC 2018/2019
 
-## (OPCIONAL)
+## Localização sem sensor(OPCIONAL)
 
 É possível localizar o celular no lugar do sensor, é preciso permitir manualmente que o app tenha acesso a sua localidade nas configurações de seus aplicativos, além de estar com a função de localidade ativa(aquela que o google map precisa), não testei em celulares antigos então pode ser que não funcione no seu modelo.
+
+## Treinamento por celular
+
+Por enquanto só funciona com o sensor. 
+
+1.Deixe o sensor em um lugar
+
+2.Nomeie pelo app esse lugar.
+
+3.Espere terminar(uma progressbar mostra o andamento).
+
+4.Repita se achar necessário para ter mais dados.
 
 ## Aplicativo android interface exemplo
 <p align="center">
