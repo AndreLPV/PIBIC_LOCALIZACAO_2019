@@ -105,4 +105,20 @@ public class RSSI8 {
         this.ap8 = ap8;
     }
 
+    @Override
+    public String toString(){
+        String s ="[";
+        s+=this.ap1+",";
+        s+=this.ap2+",";
+        s+=this.ap3+",";
+        s+=this.ap4+",";
+        s+=this.ap5+",";
+        s+=this.ap6+",";
+        s+=this.ap7+",";
+        s+=this.ap8+"]";
+
+        return s;
+
+    }
+
 }

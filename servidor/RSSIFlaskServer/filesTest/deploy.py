@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from RSSIknn import localiza, re_treino
-from filesTest.filtroDados import new_location
 
 app = Flask(__name__)
 
@@ -8,12 +7,6 @@ app = Flask(__name__)
 @app.route('/teste')
 def index():
     return '<h1>Server RSSI<h1>'
-
-@app.route('/teste_postman', methods=['GET'])
-def get_local_teste():
-    ap = request.args.getlist("ap")
-    return '<h1>'+localiza(ap)+'<h1>'
-
 
 @app.route('/re')
 def index2():
@@ -24,12 +17,7 @@ def index2():
 @app.route('/add_local', methods=['POST'])
 def put_local():
     json = request.get_json()
-    name = request.args.get("name")
-    print(json['RSSI8'])
-    print(name)
-    new_location(name,json['RSSI8'])
-    return "funcionou"
-"""
+    print(json)
     ap1 = json['ap1']
     ap2 = json['ap2']
     ap3 = json['ap3']
@@ -42,12 +30,11 @@ def put_local():
     print(sinais)
 #   return jsonify({'local': localiza(sinais)})
     return localiza(sinais)
-"""
+
 
 @app.route('/locate', methods=['GET'])
 def get_local():
     ap = request.args.getlist("ap")
-    print(localiza(ap))
     return localiza(ap)
 
 
