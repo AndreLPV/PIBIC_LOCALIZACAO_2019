@@ -18,9 +18,9 @@ Por enquanto só funciona com o sensor.
 
 3.Aperte o botão.
 
-3.Espere terminar(uma progressbar mostra o andamento).
+4.Espere terminar(uma progressbar mostra o andamento).
 
-4.Repita se achar necessário para ter mais dados.
+5.Repita se achar necessário para ter mais dados.
 
 ## Aplicativo android interface exemplo
 <p align="center">
