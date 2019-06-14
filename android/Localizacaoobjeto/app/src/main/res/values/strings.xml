@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Localizacao objeto</string>
+    <string name="tag_tab1" translatable="false">TAB_HOME</string>
+    <string name="tag_tab2" translatable="false">TAB_CHAT</string>
+    <string name="tag_tab3" translatable="false">TAB_PROFILE</string>
+
+    <string name="tab_tab1_title" translatable="false">Home</string>
+    <string name="tab_tab2_title" translatable="false">Chat</string>
+    <string name="tab_tab3_title" translatable="false">Profile</string>
+
+    <!--just uncomment(comment) one of these to display(or not) the relative tab within the adapter-->
+    <string-array name="tab_tags" translatable="false">
+        <item>@string/tag_tab1</item>
+        <item>@string/tag_tab2</item>
+        <item>@string/tag_tab3</item>
+    </string-array>
+</resources>

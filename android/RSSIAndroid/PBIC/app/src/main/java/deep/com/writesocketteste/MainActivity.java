@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -151,14 +153,22 @@ public class MainActivity extends AppCompatActivity {
                     List<ScanResult> wifiList = wifiManager.getScanResults();
                     Log.v("fatal",wifiList.toString());
                     for (ScanResult scanResult : wifiList) {
-                        if(scanResult.SSID.equals("AP1")) RSSI[0] = scanResult.level;
+                        /*if(scanResult.SSID.equals("AP1")) RSSI[0] = scanResult.level;
                         if(scanResult.SSID.equals("AP2")) RSSI[1] = scanResult.level;
                         if(scanResult.SSID.equals("AP3")) RSSI[2] = scanResult.level;
                         if(scanResult.SSID.equals("AP4")) RSSI[3] = scanResult.level;
                         if(scanResult.SSID.equals("AP5")) RSSI[4] = scanResult.level;
                         if(scanResult.SSID.equals("AP6")) RSSI[5] = scanResult.level;
                         if(scanResult.SSID.equals("AP7")) RSSI[6] = scanResult.level;
-                        if(scanResult.SSID.equals("AP8")) RSSI[7] = scanResult.level;
+                        if(scanResult.SSID.equals("AP8")) RSSI[7] = scanResult.level;*/
+                        if(scanResult.SSID.equals("Andre.L.96")) RSSI[0] = scanResult.level;
+                        if(scanResult.SSID.equals("Rafael net")) RSSI[1] = scanResult.level;
+                        if(scanResult.SSID.equals("#NET-CLARO-WIFI")) RSSI[2] = scanResult.level;
+                        if(scanResult.SSID.equals("Andre.L.96")) RSSI[3] = scanResult.level;
+                        if(scanResult.SSID.equals("Rafael net")) RSSI[4] = scanResult.level;
+                        if(scanResult.SSID.equals("#NET-CLARO-WIFI")) RSSI[5] = scanResult.level;
+                        if(scanResult.SSID.equals("Andre.L.96")) RSSI[6] = scanResult.level;
+                        if(scanResult.SSID.equals("Rafael net")) RSSI[7] = scanResult.level;
                     }
                     updateUserInterface();
                     localization();
@@ -290,7 +300,11 @@ public class MainActivity extends AppCompatActivity {
 
                 if (response.isSuccessful() ) {
                     if(response.body() != null){
+                        Animation shake = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
+
+
                         localTextView.setText(response.body().toString());
+                        localTextView.startAnimation(shake);
                     }
                 }else {
                     Toast.makeText(getApplicationContext() ,

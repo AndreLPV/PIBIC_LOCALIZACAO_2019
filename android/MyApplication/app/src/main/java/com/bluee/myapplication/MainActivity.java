@@ -1,0 +1,40 @@
+package com.bluee.myapplication;
+
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+
+public class MainActivity extends AppCompatActivity implements FragmentOne.SendMessage{
+
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    ViewPagerAdapter viewPagerAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setOffscreenPageLimit(3);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void sendData(String message) {
+        String tag = "android:switcher:" + R.id.viewPager + ":" + 1;
+        FragmentTwo f = (FragmentTwo) getSupportFragmentManager().findFragmentByTag(tag);
+        String tag2 = "android:switcher:" + R.id.viewPager + ":" + 3;
+        FragmentTwo f2 = (FragmentTwo) getSupportFragmentManager().findFragmentByTag(tag2);
+        f.displayReceivedData(message);
+        f2.displayReceivedData(message);
+
+    }
+}

@@ -5,7 +5,8 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
-url = "valores.txt"
+url = "valoresNew.txt"
+#url = "valores.txt"
 names = ['AP1', 'AP2', 'AP3', 'AP4', 'AP5', 'AP6', 'AP7', 'AP8', 'Class']
 # Read dataset to pandas dataframe
 dataset = pd.read_csv(url, names=names)

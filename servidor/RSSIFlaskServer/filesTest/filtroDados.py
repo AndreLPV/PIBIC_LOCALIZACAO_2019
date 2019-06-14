@@ -68,16 +68,25 @@ def new_location(name_location, data_location):
     ap6 = [x['ap6'] for x in X]
     ap7 = [x['ap7'] for x in X]
     ap8 = [x['ap8'] for x in X]
-    apf1 = filter_ap(ap1)
-    apf2 = filter_ap(ap2)
-    apf3 = filter_ap(ap3)
-    apf4 = filter_ap(ap4)
-    apf5 = filter_ap(ap5)
-    apf6 = filter_ap(ap6)
-    apf7 = filter_ap(ap7)
-    apf8 = filter_ap(ap8)
+    #apf1 = filter_ap(ap1)
+    #apf2 = filter_ap(ap2)
+    #apf3 = filter_ap(ap3)
+    #apf4 = filter_ap(ap4)
+    #apf5 = filter_ap(ap5)
+    #apf6 = filter_ap(ap6)
+    #apf7 = filter_ap(ap7)
+    #apf8 = filter_ap(ap8)
+    apf1 = ap1
+    apf2 = ap2
+    apf3 = ap3
+    apf4 = ap4
+    apf5 = ap5
+    apf6 = ap6
+    apf7 = ap7
+    apf8 = ap8
     for a1,a2,a3,a4,a5,a6,a7,a8 in zip(apf1,apf2,apf3,apf4,apf5,apf6,apf7,apf8):
         write_filter2(a1,a2,a3,a4,a5,a6,a7,a8,y)
+
 
 
 def write_filter(a1,a2,a3,a4,a5,a6,a7,a8,local):
@@ -87,7 +96,7 @@ def write_filter(a1,a2,a3,a4,a5,a6,a7,a8,local):
 
 def write_filter2(a1,a2,a3,a4,a5,a6,a7,a8,local):
     file = open("valoresNew.txt","a+")
-    file.write("{},{},{},{},{},{},{},{},{}\n".format(a1,a2,a3,a4,a5,a6,a7,a8,local))
+    file.write("{},{},{},{},{},{},{},{},{}\n".format(round(a1,2),round(a2,2),round(a3,2),round(a4,2),round(a5,2),round(a6,2),round(a7,2),round(a8,2),local))
     file.close()
 
 def localiza(rssi):

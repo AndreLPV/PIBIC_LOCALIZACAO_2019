@@ -29,8 +29,8 @@ public class ApiClient {
                     .setLenient()
                     .create();
             Retrofit restAdapter = new Retrofit.Builder()
-                    .baseUrl("https://whispering-springs-87485.herokuapp.com/")
-                    //.baseUrl("http://192.168.0.11:5000")
+                    //.baseUrl("https://whispering-springs-87485.herokuapp.com/")
+                    .baseUrl("http://192.168.0.11:5000")
                     //.addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
