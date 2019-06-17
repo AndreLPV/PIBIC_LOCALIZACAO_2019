@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.Menu;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textResponse;
     Button buttonConnect;
     EditText welcomeMsg;
-    String IpAddress = "192.168.0.117";
+    String IpAddress, serverUrl;
     int Port = 8090;
 
     TextView sensorsDataReceivedTimeTextView;
@@ -100,9 +102,96 @@ public class MainActivity extends AppCompatActivity {
                 Log.v("fatal","achar sozinho");
                 simpleFind = false;
                 break;
+            case R.id.sensorIp:
+                Log.v("fatal","trocando IP");
+                trocarIp();
+                break;
+            case R.id.sensorPort:
+                Log.v("fatal","trocando porta");
+                trocarPorta();
+                break;
+            case R.id.server:
+                Log.v("fatal","trocando server");
+                trocarServer();
+                break;
 
         }
         return true;
+    }
+
+    private void trocarServer() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Url do server");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        input.setText(SharedPrefsUtils.getStringPreference(this,"server",serverUrl));
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPrefsUtils.setStringPreference(getApplicationContext(),"server",input.getText().toString());
+                serverUrl = input.getText().toString();
+                Toast.makeText(getApplicationContext(),"Novo server salvo",Toast.LENGTH_LONG);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    private void trocarIp() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Ip do sensor na rede");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        input.setText(SharedPrefsUtils.getStringPreference(this,"ip",IpAddress));
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPrefsUtils.setStringPreference(getApplicationContext(),"ip",input.getText().toString());
+                IpAddress = input.getText().toString();
+                Toast.makeText(getApplicationContext(),"Novo IP salvo",Toast.LENGTH_LONG);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    private void trocarPorta() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Porta do sensor na rede");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        input.setText(""+SharedPrefsUtils.getIntegerPreference(getApplicationContext(),"porta",Port));
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPrefsUtils.setIntegerPreference(getApplicationContext(),"porta",Integer.parseInt(input.getText().toString()));
+                Port = Integer.parseInt(input.getText().toString());
+                Toast.makeText(getApplicationContext(),"Nova porta salva",Toast.LENGTH_LONG);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
     @Override
@@ -115,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
 
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
+
+        IpAddress = SharedPrefsUtils.getStringPreference(this,"ip","192.168.0.117");
+        Port = SharedPrefsUtils.getIntegerPreference(this,"porta",8090);
+        serverUrl = SharedPrefsUtils.getStringPreference(this,"server","http://192.168.0.11:5000");
 
         AP1ValueTextView = (TextView) findViewById(R.id.AP1ValueTextView);
         AP2ValueTextView = (TextView) findViewById(R.id.AP2ValueTextView);
@@ -153,14 +246,6 @@ public class MainActivity extends AppCompatActivity {
                     List<ScanResult> wifiList = wifiManager.getScanResults();
                     Log.v("fatal",wifiList.toString());
                     for (ScanResult scanResult : wifiList) {
-                        /*if(scanResult.SSID.equals("AP1")) RSSI[0] = scanResult.level;
-                        if(scanResult.SSID.equals("AP2")) RSSI[1] = scanResult.level;
-                        if(scanResult.SSID.equals("AP3")) RSSI[2] = scanResult.level;
-                        if(scanResult.SSID.equals("AP4")) RSSI[3] = scanResult.level;
-                        if(scanResult.SSID.equals("AP5")) RSSI[4] = scanResult.level;
-                        if(scanResult.SSID.equals("AP6")) RSSI[5] = scanResult.level;
-                        if(scanResult.SSID.equals("AP7")) RSSI[6] = scanResult.level;
-                        if(scanResult.SSID.equals("AP8")) RSSI[7] = scanResult.level;*/
                         if(scanResult.SSID.equals("Andre.L.96")) RSSI[0] = scanResult.level;
                         if(scanResult.SSID.equals("Rafael net")) RSSI[1] = scanResult.level;
                         if(scanResult.SSID.equals("#NET-CLARO-WIFI")) RSSI[2] = scanResult.level;
@@ -169,6 +254,16 @@ public class MainActivity extends AppCompatActivity {
                         if(scanResult.SSID.equals("#NET-CLARO-WIFI")) RSSI[5] = scanResult.level;
                         if(scanResult.SSID.equals("Andre.L.96")) RSSI[6] = scanResult.level;
                         if(scanResult.SSID.equals("Rafael net")) RSSI[7] = scanResult.level;
+
+                        if(scanResult.SSID.equals("AP1")) RSSI[0] = scanResult.level;
+                        if(scanResult.SSID.equals("AP2")) RSSI[1] = scanResult.level;
+                        if(scanResult.SSID.equals("AP3")) RSSI[2] = scanResult.level;
+                        if(scanResult.SSID.equals("AP4")) RSSI[3] = scanResult.level;
+                        if(scanResult.SSID.equals("AP5")) RSSI[4] = scanResult.level;
+                        if(scanResult.SSID.equals("AP6")) RSSI[5] = scanResult.level;
+                        if(scanResult.SSID.equals("AP7")) RSSI[6] = scanResult.level;
+                        if(scanResult.SSID.equals("AP8")) RSSI[7] = scanResult.level;
+
                     }
                     updateUserInterface();
                     localization();
@@ -221,6 +316,11 @@ public class MainActivity extends AppCompatActivity {
                 if (isChecked) {
                     window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     btn_upload.setText("Adicionar novo local");
+                    simpleFind = true;
+                    Log.v("fatal",SharedPrefsUtils.getStringPreference(getApplicationContext(),"ip","Nao salvou"));
+                    Log.v("fatal",SharedPrefsUtils.getIntegerPreference(getApplicationContext(),"porta",0)+"");
+                    Log.v("fatal",SharedPrefsUtils.getStringPreference(getApplicationContext(),"server","sem url"));
+
                 } else {
                     getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     wifiManager.startScan();
@@ -229,7 +329,8 @@ public class MainActivity extends AppCompatActivity {
                     for (ScanResult scanResult : wifiList) {
                         s += scanResult.SSID+": "+scanResult.level+" dB\n";
                     }
-                    btn_upload.setText(s);
+                    //btn_upload.setText(s);
+                    simpleFind = false;
                 }
 
             }
@@ -295,7 +396,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void localization(){
-        ApiClient.getRSSI8Client().getLocation(RSSI).enqueue(new Callback<String>() {
+        ApiClient.getRSSI8Client(serverUrl).getLocation(RSSI).enqueue(new Callback<String>() {
             public void onResponse(Call<String> call, Response<String> response ){
 
                 if (response.isSuccessful() ) {
@@ -322,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void upload(RSSI8List data){
-        ApiClient.getRSSI8Client().putLocation(data,title).enqueue(new Callback<String>() {
+        ApiClient.getRSSI8Client(serverUrl).putLocation(data,title).enqueue(new Callback<String>() {
             public void onResponse(Call<String> call, Response<String> response ){
 
                 if (response.isSuccessful() ) {

@@ -9,4 +9,17 @@
         android:title="localizar celular"
         android:id="@+id/phoneFind">
     </item>
+
+    <item
+        android:title="Trocar IP do sensor se conectar"
+        android:id="@+id/sensorIp">
+    </item>
+    <item
+        android:title="Trocar porta a se conectar"
+        android:id="@+id/sensorPort">
+    </item>
+    <item
+        android:title="Trocar url do server"
+        android:id="@+id/server">
+    </item>
 </menu>

@@ -39,6 +39,22 @@ public class ApiClient {
         return RSSI8Service;
     }
 
+    public static RSSI8Interface getRSSI8Client(String server) {
+
+            Gson gson = new GsonBuilder()
+                    //.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .setLenient()
+                    .create();
+            Retrofit restAdapter = new Retrofit.Builder()
+                    .baseUrl(server)
+                    //.addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+            RSSI8Service = restAdapter.create(RSSI8Interface.class);
+
+        return RSSI8Service;
+    }
+
     public interface RSSI8Interface {
         @GET("/locate")
         Call<String> getLocation(@Query("ap") int[] aps);
