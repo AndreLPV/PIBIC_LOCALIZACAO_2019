@@ -22,4 +22,8 @@
         android:title="Trocar url do server"
         android:id="@+id/server">
     </item>
+    <item
+        android:title="Trocar número de leituras de treino"
+        android:id="@+id/times">
+    </item>
 </menu>

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonConnect;
     EditText welcomeMsg;
     String IpAddress, serverUrl;
-    int Port = 8090;
+    int Port, times;
 
     TextView sensorsDataReceivedTimeTextView;
     TextView AP1ValueTextView;
@@ -114,9 +114,38 @@ public class MainActivity extends AppCompatActivity {
                 Log.v("fatal","trocando server");
                 trocarServer();
                 break;
+            case R.id.times:
+                Log.v("fatal","trocando vezes");
+                trocarTimes();
+                break;
 
         }
         return true;
+    }
+
+    private void trocarTimes() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Número de leituras");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        input.setText(""+SharedPrefsUtils.getIntegerPreference(getApplicationContext(),"times",times));
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPrefsUtils.setIntegerPreference(getApplicationContext(),"times",Integer.parseInt(input.getText().toString()));
+                times = Integer.parseInt(input.getText().toString());
+                Toast.makeText(getApplicationContext(),"Nova vezes salva",Toast.LENGTH_LONG);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
     private void trocarServer() {
@@ -208,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
         IpAddress = SharedPrefsUtils.getStringPreference(this,"ip","192.168.0.117");
         Port = SharedPrefsUtils.getIntegerPreference(this,"porta",8090);
         serverUrl = SharedPrefsUtils.getStringPreference(this,"server","http://192.168.0.11:5000");
+        times = SharedPrefsUtils.getIntegerPreference(this,"times",10);
 
         AP1ValueTextView = (TextView) findViewById(R.id.AP1ValueTextView);
         AP2ValueTextView = (TextView) findViewById(R.id.AP2ValueTextView);
@@ -227,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
 
         refreshButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 if(simpleFind){
                     ESP8266Task esp8266Task = new ESP8266Task();
                     esp8266Task.setIp(IpAddress,Port);
@@ -243,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                     wifiManager.startScan();
+
                     List<ScanResult> wifiList = wifiManager.getScanResults();
                     Log.v("fatal",wifiList.toString());
                     for (ScanResult scanResult : wifiList) {
@@ -250,10 +282,10 @@ public class MainActivity extends AppCompatActivity {
                         if(scanResult.SSID.equals("Rafael net")) RSSI[1] = scanResult.level;
                         if(scanResult.SSID.equals("#NET-CLARO-WIFI")) RSSI[2] = scanResult.level;
                         if(scanResult.SSID.equals("Andre.L.96")) RSSI[3] = scanResult.level;
-                        if(scanResult.SSID.equals("Rafael net")) RSSI[4] = scanResult.level;
-                        if(scanResult.SSID.equals("#NET-CLARO-WIFI")) RSSI[5] = scanResult.level;
+                        if(scanResult.SSID.equals("Andre.L.96")) RSSI[4] = scanResult.level;
+                        if(scanResult.SSID.equals("Andre.L.96")) RSSI[5] = scanResult.level;
                         if(scanResult.SSID.equals("Andre.L.96")) RSSI[6] = scanResult.level;
-                        if(scanResult.SSID.equals("Rafael net")) RSSI[7] = scanResult.level;
+                        if(scanResult.SSID.equals("Andre.L.96")) RSSI[7] = scanResult.level;
 
                         if(scanResult.SSID.equals("AP1")) RSSI[0] = scanResult.level;
                         if(scanResult.SSID.equals("AP2")) RSSI[1] = scanResult.level;
@@ -278,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setProgress(0);
                 ESP8266UploadData esp8266 = new ESP8266UploadData();
                 esp8266.setIp(IpAddress,Port);
+                esp8266.setTimes(times);
                 esp8266.setCallback(new ESP8266UploadData.callbackInterface() {
                     @Override
                     public void finalizar(ArrayList<RSSI8> data) {
@@ -329,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
                     for (ScanResult scanResult : wifiList) {
                         s += scanResult.SSID+": "+scanResult.level+" dB\n";
                     }
-                    //btn_upload.setText(s);
+                    btn_upload.setText(s);
                     simpleFind = false;
                 }
 

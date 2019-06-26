@@ -31,6 +31,10 @@ public class ESP8266UploadData extends AsyncTask<String, Integer, Void> {
         dataRSSI = new ArrayList<RSSI8>();
     }
 
+    public void setTimes(int times){
+        n = times;
+    }
+
     ESP8266UploadData(){};
     public String IpAddress;
     public int Port;
